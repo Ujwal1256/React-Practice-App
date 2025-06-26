@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>React App</title>
+</head>
+<body>
+  <div id="root">Hello from DOM</div>
+
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+  <script type="text/babel">
+    const App = () => {
+      const [data, setData] = React.useState([]);
+
+      async function fetchData() {
+        try {
+          const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+          console.log("Fetched data", response.data);
+          setData(response.data);
+          setData(result);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      }
+
+     
+
+      return (
+        <div>
+          <h1>Hello from React</h1>
+          <button onClick={fetchData}>Fetch Data</button>
+          <ul>
+            {data.map((item, index) => (
+              <li key={item.id || index}>{item.title}</li>
+            ))}
+          </ul>
+        </div>
+      );
+    };
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>
